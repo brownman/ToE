@@ -19,6 +19,6 @@
 [submodule "vendor/mauricemach/coffeekup"]
 	path = vendor/mauricemach/coffeekup
 	url = https://github.com/mauricemach/coffeekup.git
-[submodule "vendor/cloudhead/less"]
-	path = vendor/cloudhead/less
+[submodule "vendor/cloudhead/less.js"]
+	path = vendor/cloudhead/less.js
 	url = https://github.com/cloudhead/less.js.git
