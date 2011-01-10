@@ -22,6 +22,8 @@ html lang: 'en', ->
     script type: 'text/javascript', src: '/vendor/mrdoob/three.js/src/extras/primitives/Cube.js'
     
     # client
+    script src: '/require.coffee', type: 'text/coffeescript'
+    
     script src: '/terrain.coffee', type: 'text/coffeescript'
     script src: '/input.coffee', type: 'text/coffeescript'
     script src: '/client.coffee', type: 'text/coffeescript'
