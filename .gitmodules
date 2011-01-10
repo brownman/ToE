@@ -1,0 +1,24 @@
+[submodule "vendor/mrdoob/three.js"]
+	path = vendor/mrdoob/three.js
+	url = https://github.com/mrdoob/three.js.git
+[submodule "vendor/ry/node"]
+	path = vendor/ry/node
+	url = https://github.com/ry/node.git
+[submodule "vendor/jashkenas/coffee-script"]
+	path = vendor/jashkenas/coffee-script
+	url = https://github.com/jashkenas/coffee-script.git
+[submodule "vendor/cloudhead/node-static"]
+	path = vendor/cloudhead/node-static
+	url = https://github.com/cloudhead/node-static.git
+[submodule "vendor/substack/dnode"]
+	path = vendor/substack/dnode
+	url = https://github.com/substack/dnode.git
+[submodule "vendor/LearnBoost/Socket.IO"]
+	path = vendor/LearnBoost/Socket.IO
+	url = https://github.com/LearnBoost/Socket.IO.git
+[submodule "vendor/mauricemach/coffeekup"]
+	path = vendor/mauricemach/coffeekup
+	url = https://github.com/mauricemach/coffeekup.git
+[submodule "vendor/cloudhead/less"]
+	path = vendor/cloudhead/less
+	url = https://github.com/cloudhead/less.js.git
