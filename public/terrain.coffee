@@ -1,4 +1,128 @@
-console.log 'terrain'
+# map of UV indices for faces of partially defined cubes
+window.uv_index_map = [
+  {px: -1, nx: -1, py: 0, ny: -1, pz: -1, nz: -1}
+  {px: -1, nx: -1, py: 0, ny: -1, pz: -1, nz:  1}
+  {px: -1, nx: -1, py: 0, ny: -1, pz:  1, nz: -1}
+  {px: -1, nx: -1, py: 0, ny: -1, pz:  1, nz:  2}
+  {px: -1, nx:  0, py: 1, ny: -1, pz: -1, nz: -1}
+  {px: -1, nx:  0, py: 1, ny: -1, pz: -1, nz:  2}
+  {px: -1, nx:  0, py: 1, ny: -1, pz:  2, nz: -1}
+  {px: -1, nx:  0, py: 1, ny: -1, pz:  2, nz:  3}
+  {px:  0, nx: -1, py: 1, ny: -1, pz: -1, nz: -1}
+  {px:  0, nx: -1, py: 1, ny: -1, pz: -1, nz:  2}
+  {px:  0, nx: -1, py: 1, ny: -1, pz:  2, nz: -1}
+  {px:  0, nx: -1, py: 1, ny: -1, pz:  2, nz:  3}
+  {px:  0, nx:  1, py: 2, ny: -1, pz: -1, nz: -1}
+  {px:  0, nx:  1, py: 2, ny: -1, pz: -1, nz:  3}
+  {px:  0, nx:  1, py: 2, ny: -1, pz:  3, nz: -1}
+  {px:  0, nx:  1, py: 2, ny: -1, pz:  3, nz:  4}
+]
+
+# all possible combinations of corners and sides
+# mapped to mixed tiles
+#  (including corners overlapping sides)
+#  (excluding corner alone and sides alone)
+#
+# looks ugly, but allows to squeeze all
+# combinations for one texture into just 3 rows
+# instead of 16
+
+window.mixmap =
+  "1_1":  0
+  "1_3":  0
+  "1_9":  0
+  "1_11": 0
+           
+  "1_4":  1
+  "1_6":  1
+  "1_12": 1
+  "1_14": 1
+           
+  "2_2":  2
+  "2_3":  2
+  "2_6":  2
+  "2_7":  2
+           
+  "2_8":  3
+  "2_9":  3
+  "2_12": 3
+  "2_13": 3
+           
+  "4_1":  4
+  "4_5":  4
+  "4_9":  4
+  "4_13": 4
+           
+  "4_2":  5
+  "4_6":  5
+  "4_10": 5
+  "4_14": 5
+           
+  "8_4":  6
+  "8_5":  6
+  "8_6":  6
+  "8_7":  6
+           
+  "8_8":  7
+  "8_9":  7
+  "8_10": 7
+  "8_11": 7
+  
+  "1_5":  8
+  "1_7":  8
+  "1_13": 8
+  "1_15": 8
+           
+  "2_10": 9
+  "2_11": 9
+  "2_14": 9
+  "2_15": 9
+  
+  "4_3":  10
+  "4_7":  10
+  "4_11": 10
+  "4_15": 10
+            
+  "8_12": 11
+  "8_13": 11
+  "8_14": 11
+  "8_15": 11
+            
+  "5_1":  12
+  "5_3":  12
+  "5_7":  12
+  "5_9":  12
+  "5_11": 12
+  "5_13": 12
+  "5_15": 12
+            
+  "6_2":  13
+  "6_3":  13
+  "6_6":  13
+  "6_7":  13
+  "6_10": 13
+  "6_11": 13
+  "6_14": 13
+  "6_15": 13
+            
+  "9_4":  14
+  "9_5":  14
+  "9_6":  14
+  "9_7":  14
+  "9_12": 14
+  "9_13": 14
+  "9_14": 14
+  "9_15": 14
+  
+  "10_8":  15
+  "10_9":  15
+  "10_10": 15
+  "10_11": 15
+  "10_12": 15
+  "10_13": 15
+  "10_14": 15
+  "10_15": 15
+
 `
 window.generateMegamaterialAO = function( textures, strength, debug_texture, debug_numbers, debug_corner_colors  ) {
 

@@ -29,6 +29,8 @@ html lang: 'en', ->
     script src: '/require.coffee', type: 'text/coffeescript'
     script src: '/terrain.coffee', type: 'text/coffeescript'
     script src: '/input.coffee', type: 'text/coffeescript'
+    script src: '/loop.coffee', type: 'text/coffeescript'
+    script src: '/stats.coffee', type: 'text/coffeescript'
     script src: '/client.coffee', type: 'text/coffeescript'
 
   body ->

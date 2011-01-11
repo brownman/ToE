@@ -5,7 +5,6 @@ window.init = function() {
   window.fogExp2 = true;
 
   window.container = null;
-  window.stats = null;
 
   window.camera = null;
   window.scene = null;
@@ -19,18 +18,10 @@ window.init = function() {
   window.worldHalfDepth = worldDepth / 2;
   window.data = window.generateHeight(worldWidth, worldDepth);
 
-  window.mouseX = 0;
-  window.mouseY = 0;
   window.lat = 0;
   window.lon = 0;
   window.phy = 0;
   window.theta = 0;
-
-  window.direction = new THREE.Vector3();
-  window.moveForward = false;
-  window.moveBackward = false;
-  window.moveLeft = false;
-  window.moveRight = false;
 
   window.windowHalfX = window.innerWidth / 2;
   window.windowHalfY = window.innerHeight / 2;
@@ -86,133 +77,6 @@ window.init = function() {
     cube,
 
     unit = 1/16 * 0.95, padding = 1/16 * 0.025, p, s, t, hash, N = -1,
-
-    // map of UV indices for faces of partially defined cubes
-
-    uv_index_map = {
-    0:  { px: N, nx: N, py: 0, ny: N, pz: N, nz: N },
-    1:  { px: N, nx: N, py: 0, ny: N, pz: N, nz: 1 },
-    2:  { px: N, nx: N, py: 0, ny: N, pz: 1, nz: N },
-    3:  { px: N, nx: N, py: 0, ny: N, pz: 1, nz: 2 },
-    4:  { px: N, nx: 0, py: 1, ny: N, pz: N, nz: N },
-    5:  { px: N, nx: 0, py: 1, ny: N, pz: N, nz: 2 },
-    6:  { px: N, nx: 0, py: 1, ny: N, pz: 2, nz: N },
-    7:  { px: N, nx: 0, py: 1, ny: N, pz: 2, nz: 3 },
-    8:  { px: 0, nx: N, py: 1, ny: N, pz: N, nz: N },
-    9:  { px: 0, nx: N, py: 1, ny: N, pz: N, nz: 2 },
-    10: { px: 0, nx: N, py: 1, ny: N, pz: 2, nz: N },
-    11: { px: 0, nx: N, py: 1, ny: N, pz: 2, nz: 3 },
-    12: { px: 0, nx: 1, py: 2, ny: N, pz: N, nz: N },
-    13: { px: 0, nx: 1, py: 2, ny: N, pz: N, nz: 3 },
-    14: { px: 0, nx: 1, py: 2, ny: N, pz: 3, nz: N },
-    15: { px: 0, nx: 1, py: 2, ny: N, pz: 3, nz: 4 }
-    },
-
-    // all possible combinations of corners and sides
-    // mapped to mixed tiles
-    //  (including corners overlapping sides)
-    //  (excluding corner alone and sides alone)
-
-    // looks ugly, but allows to squeeze all
-    // combinations for one texture into just 3 rows
-    // instead of 16
-
-    mixmap = {
-    "1_1":  0,
-    "1_3":  0,
-    "1_9":  0,
-    "1_11": 0,
-
-    "1_4":  1,
-    "1_6":  1,
-    "1_12": 1,
-    "1_14": 1,
-
-    "2_2":  2,
-    "2_3":  2,
-    "2_6":  2,
-    "2_7":  2,
-
-    "2_8":  3,
-    "2_9":  3,
-    "2_12": 3,
-    "2_13": 3,
-
-    "4_1":  4,
-    "4_5":  4,
-    "4_9":  4,
-    "4_13": 4,
-
-    "4_2":  5,
-    "4_6":  5,
-    "4_10": 5,
-    "4_14": 5,
-
-    "8_4":  6,
-    "8_5":  6,
-    "8_6":  6,
-    "8_7":  6,
-
-    "8_8":  7,
-    "8_9":  7,
-    "8_10": 7,
-    "8_11": 7,
-
-    "1_5":  8,
-    "1_7":  8,
-    "1_13": 8,
-    "1_15": 8,
-
-    "2_10": 9,
-    "2_11": 9,
-    "2_14": 9,
-    "2_15": 9,
-
-    "4_3":  10,
-    "4_7":  10,
-    "4_11": 10,
-    "4_15": 10,
-
-    "8_12": 11,
-    "8_13": 11,
-    "8_14": 11,
-    "8_15": 11,
-
-    "5_1":  12,
-    "5_3":  12,
-    "5_7":  12,
-    "5_9":  12,
-    "5_11": 12,
-    "5_13": 12,
-    "5_15": 12,
-
-    "6_2":  13,
-    "6_3":  13,
-    "6_6":  13,
-    "6_7":  13,
-    "6_10": 13,
-    "6_11": 13,
-    "6_14": 13,
-    "6_15": 13,
-
-    "9_4":  14,
-    "9_5":  14,
-    "9_6":  14,
-    "9_7":  14,
-    "9_12": 14,
-    "9_13": 14,
-    "9_14": 14,
-    "9_15": 14,
-
-    "10_8":  15,
-    "10_9":  15,
-    "10_10": 15,
-    "10_11": 15,
-    "10_12": 15,
-    "10_13": 15,
-    "10_14": 15,
-    "10_15": 15
-    },
 
     tilemap = {},
 
@@ -413,45 +277,6 @@ window.init = function() {
   container.innerHTML = "";
 
   container.appendChild( renderer.domElement );
-
-  stats = new Stats();
-  stats.domElement.style.position = 'absolute';
-  stats.domElement.style.top = '0px';
-  container.appendChild( stats.domElement );
-
-  document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-  document.addEventListener( 'mouseup', onDocumentMouseUp, false );
-  document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-  document.addEventListener( 'contextmenu', function ( event ) { event.preventDefault(); }, false );
-
-  document.addEventListener( 'keydown', onDocumentKeyDown, false );
-  document.addEventListener( 'keyup', onDocumentKeyUp, false );
-
-  document.getElementById( "bao" ).addEventListener( "click",  function() { mat.map = m_ao.map; }, false );
-  document.getElementById( "baot" ).addEventListener( "click", function() { mat.map = m_aot.map; }, false );
-  document.getElementById( "bt" ).addEventListener( "click",   function() { mat.map = m_t.map; }, false );
-
-}
-
-window.tick = function() {
-  if ( moveForward )  camera.translateZ( - 15 );
-  if ( moveBackward ) camera.translateZ( 15 );
-  if ( moveLeft )     camera.translateX( - 15 );
-  if ( moveRight )    camera.translateX( 15 );
-
-  lon += mouseX * 0.005;
-  lat -= mouseY * 0.005;
-
-  lat = Math.max( - 85, Math.min( 85, lat ) );
-  phi = ( 90 - lat ) * Math.PI / 180;
-  theta = lon * Math.PI / 180;
-
-  camera.target.position.x = 100 * Math.sin( phi ) * Math.cos( theta ) + camera.position.x;
-  camera.target.position.y = 100 * Math.cos( phi ) + camera.position.y;
-  camera.target.position.z = 100 * Math.sin( phi ) * Math.sin( theta ) + camera.position.z;
-
-  renderer.render(scene, camera);
-  stats.update();
 }
 `
 
