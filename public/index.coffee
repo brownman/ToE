@@ -6,7 +6,7 @@ html lang: 'en', ->
     title 'Theory of Everything'
     
     # styles
-    link type: 'text/css', rel: 'stylesheet/less', href: '/less/master.less'
+    link type: 'text/css', rel: 'stylesheet/less', href: '/master.less'
     
     # deps
     script type: 'text/javascript', src: '/vendor/cloudhead/less.js/dist/less-1.0.40.js'
@@ -21,9 +21,12 @@ html lang: 'en', ->
     script type: 'text/javascript', src: '/vendor/mrdoob/three.js/src/extras/GeometryUtils.js'
     script type: 'text/javascript', src: '/vendor/mrdoob/three.js/src/extras/primitives/Cube.js'
     
+    # coffeescript ->
+    #   console.log (CoffeeScript.load '/terrain.coffee')
+    #   # CoffeeScript.load '/require.coffee'
+    
     # client
     script src: '/require.coffee', type: 'text/coffeescript'
-    
     script src: '/terrain.coffee', type: 'text/coffeescript'
     script src: '/input.coffee', type: 'text/coffeescript'
     script src: '/client.coffee', type: 'text/coffeescript'
@@ -31,7 +34,7 @@ html lang: 'en', ->
   body ->
     div id: 'container', -> 'Generating world...'
     
-    div id: 'info', ->
+    div id: 'switches', ->
       button id: 'bt', -> 'texture'
       button id: 'bao', -> 'ao'
       button id: 'baot', -> 'texture + ao'

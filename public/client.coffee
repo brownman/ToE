@@ -1,38 +1,40 @@
+console.log 'client'
+
 `
-window.fogExp2 = true;
-
-window.container = null;
-window.stats = null;
-
-window.camera = null;
-window.scene = null;
-window.renderer = null;
-
-window.mesh = null;
-
-window.worldWidth = 128;
-window.worldDepth = 128;
-window.worldHalfWidth = worldWidth / 2;
-window.worldHalfDepth = worldDepth / 2;
-window.data = generateHeight(worldWidth, worldDepth);
-
-window.mouseX = 0;
-window.mouseY = 0;
-window.lat = 0;
-window.lon = 0;
-window.phy = 0;
-window.theta = 0;
-
-window.direction = new THREE.Vector3();
-window.moveForward = false;
-window.moveBackward = false;
-window.moveLeft = false;
-window.moveRight = false;
-
-window.windowHalfX = window.innerWidth / 2;
-window.windowHalfY = window.innerHeight / 2;
-
 window.init = function() {
+  window.fogExp2 = true;
+
+  window.container = null;
+  window.stats = null;
+
+  window.camera = null;
+  window.scene = null;
+  window.renderer = null;
+
+  window.mesh = null;
+
+  window.worldWidth = 128;
+  window.worldDepth = 128;
+  window.worldHalfWidth = worldWidth / 2;
+  window.worldHalfDepth = worldDepth / 2;
+  window.data = window.generateHeight(worldWidth, worldDepth);
+
+  window.mouseX = 0;
+  window.mouseY = 0;
+  window.lat = 0;
+  window.lon = 0;
+  window.phy = 0;
+  window.theta = 0;
+
+  window.direction = new THREE.Vector3();
+  window.moveForward = false;
+  window.moveBackward = false;
+  window.moveLeft = false;
+  window.moveRight = false;
+
+  window.windowHalfX = window.innerWidth / 2;
+  window.windowHalfY = window.innerHeight / 2;
+  
   container = document.getElementById( 'container' );
 
   if( fogExp2 )
@@ -431,7 +433,7 @@ window.init = function() {
 
 }
 
-window.loop = function() {
+window.tick = function() {
   if ( moveForward )  camera.translateZ( - 15 );
   if ( moveBackward ) camera.translateZ( 15 );
   if ( moveLeft )     camera.translateX( - 15 );
@@ -451,7 +453,10 @@ window.loop = function() {
   renderer.render(scene, camera);
   stats.update();
 }
-
-init();
-setInterval(loop, 1000 / 60);
 `
+
+$().ready ->
+  setTimeout((->  
+    do init
+    setInterval tick, (1000 / 60)
+  ), 1000)

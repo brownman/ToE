@@ -1,3 +1,4 @@
+console.log 'terrain'
 `
 window.generateMegamaterialAO = function( textures, strength, debug_texture, debug_numbers, debug_corner_colors  ) {
 

@@ -1,60 +1,33 @@
-`
-window.onDocumentMouseDown = function( event ) {
-  event.preventDefault();
-  event.stopPropagation();
+window.onDocumentMouseDown = (event) ->
+  event.preventDefault()
+  event.stopPropagation()
 
-  switch ( event.button ) {
+  switch event.button
+    when 0 then window.moveForward = true
+    when 2 then window.moveBackward = true
 
-    case 0: moveForward = true; break;
-    case 2: moveBackward = true; break;
+window.onDocumentMouseUp = (event) ->
+  event.preventDefault()
+  event.stopPropagation()
 
-  }
-}
+  switch event.button
+    when 0 then window.moveForward = false
+    when 2 then window.moveBackward = false
 
-window.onDocumentMouseUp = function( event ) {
-  event.preventDefault();
-  event.stopPropagation();
+window.onDocumentMouseMove = (event) ->
+  window.mouseX = event.clientX - windowHalfX
+  window.mouseY = event.clientY - windowHalfY
 
-  switch ( event.button ) {
-    case 0: moveForward = false; break;
-    case 2: moveBackward = false; break;
-  }
-}
+window.onDocumentKeyDown = (event) ->
+  switch event.keyCode
+    when 38, 87 then window.moveForward  = true
+    when 37, 65 then window.moveLeft     = true
+    when 40, 83 then window.moveBackward = true
+    when 39, 68 then window.moveRight    = true
 
-window.onDocumentMouseMove = function(event) {
-  mouseX = event.clientX - windowHalfX;
-  mouseY = event.clientY - windowHalfY;
-}
-
-window.onDocumentKeyDown = function( event ) {
-  switch( event.keyCode ) {
-    case 38: /*up*/
-    case 87: /*W*/ moveForward = true; break;
-
-    case 37: /*left*/
-    case 65: /*A*/ moveLeft = true; break;
-
-    case 40: /*down*/
-    case 83: /*S*/ moveBackward = true; break;
-
-    case 39: /*right*/
-    case 68: /*D*/ moveRight = true; break;
-  }
-}
-
-window.onDocumentKeyUp = function( event ) {
-  switch( event.keyCode ) {
-    case 38: /*up*/
-    case 87: /*W*/ moveForward = false; break;
-
-    case 37: /*left*/
-    case 65: /*A*/ moveLeft = false; break;
-
-    case 40: /*down*/
-    case 83: /*S*/ moveBackward = false; break;
-
-    case 39: /*right*/
-    case 68: /*D*/ moveRight = false; break;
-  }
-}
-`
+window.onDocumentKeyUp = (event) ->
+  switch event.keyCode
+    when 38, 87 then window.moveForward  = false
+    when 37, 65 then window.moveLeft     = false
+    when 40, 83 then window.moveBackward = false
+    when 39, 68 then window.moveRight    = false
